@@ -192,3 +192,9 @@ class _InfoRow extends StatelessWidget {
     );
   }
 }
+
+class profile {
+  NIM;
+  Nama;
+  emailKampus;
+}
