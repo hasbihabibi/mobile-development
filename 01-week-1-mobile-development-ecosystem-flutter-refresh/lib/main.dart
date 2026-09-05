@@ -22,7 +22,14 @@ class PoliwangiProfileApp extends StatelessWidget {
 }
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  // Tantangan 2: Menyiapkan variable nullable
+  final String? githubUsername;
+  final String? skillFocus;
+  const ProfileScreen({
+    super.key,
+    this.githubUsername = 'github.com/hasbihabibi',
+    this.skillFocus = 'Mobile UI/UX & Flutter Development',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +108,8 @@ class ProfileScreen extends StatelessWidget {
                   side: const BorderSide(color: Color(0xFFE2E8F0)),
                 ),
                 color: Colors.white,
-                child: const Padding(
-                  padding: EdgeInsets.all(20.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       _InfoRow(
@@ -127,6 +134,63 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.calendar_today_rounded,
                         label: 'Semester / TA',
                         value: 'Semester 3 (2026/2027)',
+                      ),
+                      //Tantangan 2: Menambahkan Baris Informasi Baru
+                      const Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      _InfoRow(
+                        icon: Icons.link_rounded,
+                        label: 'Github',
+                        //jika githubUsername null, tampilkan teks cadangan
+                        value:
+                            githubUsername ??
+                            '(belum ada akun github yang diatur)',
+                      ),
+                      const Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      _InfoRow(
+                        icon: Icons.devices_rounded,
+                        label: 'Fokus Keahlian',
+                        //jika skillFocus null, tampilkan teks cadangan
+                        value:
+                            skillFocus ??
+                            '(belum ada fokus keahlian yang diatur)',
+                      ),
+                      //Tantangan 3: Tombol Aksi dan Snackbar
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            //Menampilkan SnackBar
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Status: Mahasiswa Aktif TRPL - Angkatan 2025',
+                                ),
+                                backgroundColor: Color(0xFF0284C7),
+                                behavior: SnackBarBehavior.floating,
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.verified_user_rounded,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            'Verifikasi Status Mahasiswa',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF0284C7),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
