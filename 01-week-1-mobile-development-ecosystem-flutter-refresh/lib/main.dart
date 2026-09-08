@@ -25,6 +25,7 @@ class ProfileScreen extends StatelessWidget {
   // Tantangan 2: Menyiapkan variable nullable
   final String? githubUsername;
   final String? skillFocus;
+
   const ProfileScreen({
     super.key,
     this.githubUsername = 'github.com/hasbihabibi',
@@ -40,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
           'Profil Mahasiswa',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFF0284C7),
+        backgroundColor: const Color(0xFF4A5053),
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -58,17 +59,17 @@ class ProfileScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE0F2FE),
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF0284C7), width: 3),
+                  border: Border.all(color: const Color(0xFF4A5053), width: 3),
                 ),
                 child: const Icon(
                   Icons.school_rounded,
                   size: 52,
-                  color: Color(0xFF0284C7),
+                  color: Color(0xFF4A5053),
                 ),
               ),
               const SizedBox(height: 16),
 
-              // ── GANTI: Nama Anda ──────────────────────────────────
+              // ── Nama Anda ──────────────────────────────────
               const Text(
                 'Muhammad Hasbiallah Habibi',
                 style: TextStyle(
@@ -79,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 6),
 
-              // ── GANTI: NIM Anda ───────────────────────────────────
+              // ── NIM Anda ───────────────────────────────────
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,
@@ -112,25 +113,25 @@ class ProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      _InfoRow(
+                      const _InfoRow(
                         icon: Icons.business_rounded,
                         label: 'Jurusan',
                         value: 'Bisnis dan Informatika',
                       ),
-                      Divider(height: 24, color: Color(0xFFF1F5F9)),
-                      _InfoRow(
+                      const Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      const _InfoRow(
                         icon: Icons.code_rounded,
                         label: 'Program Studi',
                         value: 'Sarjana Terapan TRPL',
                       ),
-                      Divider(height: 24, color: Color(0xFFF1F5F9)),
-                      _InfoRow(
+                      const Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      const _InfoRow(
                         icon: Icons.location_on_rounded,
                         label: 'Kampus',
                         value: 'Politeknik Negeri Banyuwangi',
                       ),
-                      Divider(height: 24, color: Color(0xFFF1F5F9)),
-                      _InfoRow(
+                      const Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      const _InfoRow(
                         icon: Icons.calendar_today_rounded,
                         label: 'Semester / TA',
                         value: 'Semester 3 (2026/2027)',
@@ -140,7 +141,6 @@ class ProfileScreen extends StatelessWidget {
                       _InfoRow(
                         icon: Icons.link_rounded,
                         label: 'Github',
-                        //jika githubUsername null, tampilkan teks cadangan
                         value:
                             githubUsername ??
                             '(belum ada akun github yang diatur)',
@@ -149,50 +149,50 @@ class ProfileScreen extends StatelessWidget {
                       _InfoRow(
                         icon: Icons.devices_rounded,
                         label: 'Fokus Keahlian',
-                        //jika skillFocus null, tampilkan teks cadangan
                         value:
                             skillFocus ??
                             '(belum ada fokus keahlian yang diatur)',
                       ),
-                      //Tantangan 3: Tombol Aksi dan Snackbar
-                      const SizedBox(height: 24),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            //Menampilkan SnackBar
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Status: Mahasiswa Aktif TRPL - Angkatan 2025',
-                                ),
-                                backgroundColor: Color(0xFF0284C7),
-                                behavior: SnackBarBehavior.floating,
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.verified_user_rounded,
-                            color: Colors.white,
-                          ),
-                          label: const Text(
-                            'Verifikasi Status Mahasiswa',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF0284C7),
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
+                  ),
+                ),
+              ),
+
+              // ── Tombol di luar kotak ──────────────────────────────
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    //Menampilkan SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Status: Mahasiswa Aktif TRPL - Angkatan 2025',
+                        ),
+                        backgroundColor: Color(0xFF4A5053),
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.verified_user_rounded,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    'Verifikasi Status Mahasiswa',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4A5053),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               ),
@@ -225,7 +225,7 @@ class _InfoRow extends StatelessWidget {
             color: const Color(0xFFF0F9FF),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, size: 20, color: const Color(0xFF0284C7)),
+          child: Icon(icon, size: 20, color: const Color(0xFF4A5053)),
         ),
         const SizedBox(width: 14),
         Expanded(
