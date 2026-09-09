@@ -15,14 +15,50 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
   final List<Course> _courses = Course.getSampleCourses();
   bool _isDarkMode = false;
 
+  //Tantangan 1: Variabel state untuk kategori
+  String _selectedCategory = 'Semua';
+
   void _toggleDarkMode() {
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
   }
 
+  //Fungsi untuk memfilter mata kuliah
+  List<Course> get _filteredCourses {
+    if (_selectedCategory == 'Semua') {
+      return _courses;
+    }
+    return _courses
+        .where((course) => course.category == _selectedCategory)
+        .toList();
+  }
+
+  //Memisahkan widget filter
+  Widget _buildCategoryFilter() {
+    return Wrap(
+      spacing: 8.0,
+      children: ['Semua', 'Teori', 'Praktikum'].map((category) {
+        return ChoiceChip(
+          label: Text(category),
+          selected: _selectedCategory == category,
+          onSelected: (selected) {
+            if (selected) {
+              setState(() {
+                _selectedCategory = category;
+              });
+            }
+          },
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Ambil data mata kuliah yang sudah difilter
+    final currentCourses = _filteredCourses;
+
     return Theme(
       data: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -69,21 +105,29 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
                     const SizedBox(width: 20),
                     // Kolom kanan: grid 2 kolom daftar mata kuliah
                     Expanded(
-                      flex: 3,
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 1.4,
-                        ),
-                        itemCount: _courses.length,
-                        itemBuilder: (context, index) {
-                          return CourseCard(course: _courses[index]);
-                        },
-                      ),
-                    ),
+                        flex: 3,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildCategoryFilter(),
+                              const SizedBox(height: 16),
+                              Expanded(
+                                child: GridView.builder(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16,
+                                    childAspectRatio: 0.75,
+                                  ),
+                                  itemCount: currentCourses.length,
+                                  itemBuilder: (context, index) {
+                                    return CourseCard(
+                                        course: currentCourses[index]);
+                                  },
+                                ),
+                              )
+                            ])),
                   ],
                 ),
               );
@@ -95,13 +139,15 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
               children: [
                 const HeaderBanner(),
                 const SizedBox(height: 16),
+                _buildCategoryFilter(),
+                const SizedBox(height: 16),
                 Text(
-                  'Mata Kuliah Semester 3 (${_courses.length} Terdaftar)',
+                  'Mata Kuliah Semester 3 (${currentCourses.length} Terdaftar)',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
-                ..._courses.map((course) => CourseCard(course: course)),
+                ...currentCourses.map((course) => CourseCard(course: course)),
               ],
             );
           },

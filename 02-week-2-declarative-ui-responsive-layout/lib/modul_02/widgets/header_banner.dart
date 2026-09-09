@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/course.dart';
 
 // Banner header profil mahasiswa di bagian atas dashboard
 class HeaderBanner extends StatelessWidget {
@@ -13,6 +14,10 @@ class HeaderBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Tantangan 3: Hitung total SKS
+    final dummyCourses = Course.getSampleCourses();
+    final totalSks = dummyCourses.fold(0, (sum, c) => sum + c.sks);
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -57,10 +62,34 @@ class HeaderBanner extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Text(
-            'Selamat Datang, $studentName ($nim)',
-            style: const TextStyle(color: Colors.white70, fontSize: 13),
+
+          //Tantangan 3: Badge SKS di sebelah nama
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Selamat Datang, $studentName ($nim)',
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  'Total: $totalSks SKS',
+                  style: const TextStyle(
+                    color: Color(0xFF0284C7),
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
+
           const SizedBox(height: 4),
           const Text(
             'Dashboard Akademik & Proyek',
@@ -69,15 +98,46 @@ class HeaderBanner extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           // Ringkasan status akademik
-          const Row(
+          const Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
             children: [
-              _StatPill(icon: Icons.task_alt, label: '4 Matakuliah'),
+              _StatPill(icon: Icons.task_alt, label: '5 Matakuliah'),
               SizedBox(width: 8),
               _StatPill(icon: Icons.grade, label: 'IPK 3.85'),
               SizedBox(width: 8),
               _StatPill(icon: Icons.calendar_month, label: '100% Hadir'),
             ],
           ),
+
+          //Tantangan 3: Logika Peringatan jika SKS > 24
+          if (totalSks > 24) ...[
+            const SizedBox(height: 12),
+            Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade100,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.red.shade300),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.warning_amber_rounded,
+                        color: Colors.red.shade700, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Peringatan: Total SKS melebihi batas normal (24 SKS).',
+                        style: TextStyle(
+                          color: Colors.red.shade900,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    )
+                  ],
+                ))
+          ]
         ],
       ),
     );
