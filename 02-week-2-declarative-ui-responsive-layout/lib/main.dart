@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'modul_02/academic_dashboard_screen.dart';
+import 'modul_02/studi_kasus/ruang_praktikum.dart';
 
 void main() {
   runApp(const PoliwangiStarterApp());
@@ -20,7 +21,7 @@ class PoliwangiStarterApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const ModuleLauncherScreen(),
+      home: const RuangPraktikum(),
     );
   }
 }
