@@ -170,7 +170,7 @@ class _RuangPraktikumState extends State<RuangPraktikum> {
                 decoration: BoxDecoration(
                   color: badgeTextColor == Colors.white
                       ? baseColor
-                      : baseColor.withOpacity(0.2),
+                      : baseColor.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
@@ -217,7 +217,7 @@ class _RuangPraktikumState extends State<RuangPraktikum> {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: baseColor.withOpacity(0.1),
+              color: baseColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -228,7 +228,7 @@ class _RuangPraktikumState extends State<RuangPraktikum> {
                   child: Text(
                     statusMessage,
                     style: TextStyle(
-                      color: baseColor.withOpacity(0.9),
+                      color: baseColor.withValues(alpha: 0.9),
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
